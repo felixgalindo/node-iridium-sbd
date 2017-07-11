@@ -6,11 +6,11 @@
 // (C) 2012 Razvan Dragomirescu <razvan.dragomirescu@veri.fi>
 
 
-var sys = require('sys'),
+var sys = require('util'),
 		zlib = require('zlib'),
 		async = require('async'),
 		serialport = require("serialport"),
-		SerialPort = serialport.SerialPort,
+		SerialPort = require("serialport"),
 		EventEmitter = require('events').EventEmitter;
 
 var iridiumEvents = new EventEmitter();
