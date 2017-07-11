@@ -9,7 +9,6 @@
 var sys = require('util'),
 		zlib = require('zlib'),
 		async = require('async'),
-		serialport = require("serialport"),
 		SerialPort = require("serialport"),
 		EventEmitter = require('events').EventEmitter;
 
