@@ -47,13 +47,14 @@ var iridium = {
 		defaultTimeout: 60000, // 60 seconds general timeout for all commands
 		simpleTimeout: 2000, // 2 seconds timeout for simple command such as "echo off" (ATE0)
 		timeoutForever: -1,
-		maxAttempts: 10, //max attempts to send a message
+		maxAttempts: 1, //max attempts to send a message
 		port: "/dev/ttyUSB0",
 		flowControl: false
 	},	
 	// emit a 'ringalert' event if the SBDRING unsollicited response is received
 	sbdring: function() {
 		iridiumEvents.emit('ringalert');
+    iridium.mailboxCheck();
 	},
 	
 		
@@ -125,7 +126,7 @@ var iridium = {
 		    iridium.log("Text compressed, initial length "+text.length+", compressed length "+buffer.length);
 		    
 		    iridium.c_attempt = 0;
-		    iridium.mailboxSend(buffer, callback);
+		    iridium.mailboxSend(text, callback);
 			}
 	  });	
 	},
@@ -142,7 +143,7 @@ var iridium = {
 		iridium.c_attempt++;
 		if(iridium.c_attempt <= iridium.globals.maxAttempts){			
 			iridium.lock=1;
-			iridium.sendBinaryMessage(buffer, function(err, momsn) {
+			iridium.sendMessage(buffer, function(err, momsn) {
 	      if (err==null) {
 	          if (buffer) iridium.log("[SBD] Binary message sent successfully, assigned MOMSN "+momsn);
 	
@@ -159,7 +160,7 @@ var iridium = {
 	          iridium.log("[SBD] Iridium returned error "+err+", will retry in 20s");
 	          setTimeout(function() {
 	              iridium.mailboxSend(buffer, callback);
-	          }, 20000);
+	          }, 5000);
 	      }
 	
 			});	
