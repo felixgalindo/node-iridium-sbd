@@ -44,7 +44,6 @@ var iridium = {
 		baudrate: 19200, //serial baudrate for the RockBlock
 		debug: 0, //should send extra debug info to the console
 		defaultTimeout: 60000, // 60 seconds general timeout for all commands,
-		maxWait: 60000,
 		simpleTimeout: 2000, // 2 seconds timeout for simple command such as "echo off" (ATE0)
 		timeoutForever: -1,
 		maxAttempts: 1, //max attempts to send a message
